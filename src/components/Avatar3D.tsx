@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 interface Avatar3DProps {
   isActive?: boolean;
+  enableChat?: boolean;
 }
 
-const Avatar3D: React.FC<Avatar3DProps> = ({ isActive = false }) => {
+const Avatar3D: React.FC<Avatar3DProps> = ({ isActive = false, enableChat = false }) => {
   const [pulseEffect, setPulseEffect] = useState(false);
   
   useEffect(() => {
@@ -60,6 +61,35 @@ const Avatar3D: React.FC<Avatar3DProps> = ({ isActive = false }) => {
           </span>
         </div>
       </div>
+      
+      {/* Chat Interface - Only show if enableChat is true */}
+      {enableChat && (
+        <div className="w-full mt-8">
+          <div className="glass-card p-4 max-h-64 overflow-y-auto mb-3">
+            <div className="space-y-3">
+              <div className="bg-white/5 p-2 rounded-lg text-sm">
+                <span className="text-verve-teal font-medium">Verve</span>
+                <p className="text-white/90">How can I help you today?</p>
+              </div>
+              
+              <div className="bg-white/10 p-2 rounded-lg text-sm ml-auto max-w-[80%]">
+                <span className="text-white/70 font-medium">You</span>
+                <p className="text-white">What's on my schedule today?</p>
+              </div>
+              
+              <div className="bg-white/5 p-2 rounded-lg text-sm">
+                <span className="text-verve-teal font-medium">Verve</span>
+                <p className="text-white/90">You have a meeting at 2pm and a focus session at 4pm.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex items-center">
+            <input type="text" className="flex-1 bg-white/5 border border-white/20 rounded-l-md p-2 text-sm text-white focus:outline-none focus:border-verve-teal" placeholder="Message Verve.ai..." />
+            <button className="bg-verve-teal text-black px-4 py-2 rounded-r-md text-sm font-medium">Send</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

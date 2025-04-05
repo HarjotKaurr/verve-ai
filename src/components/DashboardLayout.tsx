@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { LayoutDashboard, Calendar, BookOpen, Target, LineChart, MessageCircle, Settings, Bell } from 'lucide-react';
+import { LayoutDashboard, Calendar, BookOpen, Target, LineChart, Settings, Bell } from 'lucide-react';
 import NavItem from './NavItem';
 import BackgroundParticles from './BackgroundParticles';
 
@@ -14,11 +14,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, currentPage
 
   const navItems = [
     { icon: <LayoutDashboard size={18} />, label: 'Dashboard', to: '/', id: 'dashboard' },
-    { icon: <Calendar size={18} />, label: 'Calendar', to: '/calendar', id: 'calendar' },
+    { icon: <Calendar size={18} />, label: 'View Calendar', to: '/calendar', id: 'calendar' },
     { icon: <BookOpen size={18} />, label: 'Journal', to: '/journal', id: 'journal' },
     { icon: <Target size={18} />, label: 'Goals', to: '/goals', id: 'goals' },
     { icon: <LineChart size={18} />, label: 'Insights', to: '/insights', id: 'insights' },
-    { icon: <MessageCircle size={18} />, label: 'Chat', to: '/chat', id: 'chat' },
   ];
 
   return (

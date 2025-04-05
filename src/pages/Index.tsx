@@ -10,40 +10,66 @@ import QuickAction from '@/components/QuickAction';
 
 // Sample data for our components
 const timelineItems = [
+  // Past Tasks
   { 
     id: 1, 
     time: '08:30 AM', 
     title: 'Morning Journal', 
     status: 'completed' as const,
-    description: 'You completed your morning reflection'
+    description: 'You completed your morning reflection',
+    completion: 100,
+    type: 'past' as const
   },
   { 
     id: 2, 
+    time: '09:15 AM', 
+    title: 'Email Review', 
+    status: 'completed' as const,
+    description: 'Responded to important messages',
+    completion: 80,
+    type: 'past' as const
+  },
+  // Present Tasks
+  { 
+    id: 3, 
     time: 'Now', 
     title: 'Daily Planning', 
     status: 'in-progress' as const,
-    description: 'Organizing your priorities for today'
-  },
-  { 
-    id: 3, 
-    time: '11:00 AM', 
-    title: 'Focus Session', 
-    status: 'upcoming' as const,
-    description: '45 minutes deep work on Project X'
+    description: 'Organizing your priorities for today',
+    type: 'present' as const
   },
   { 
     id: 4, 
+    time: '11:00 AM', 
+    title: 'Focus Session', 
+    status: 'upcoming' as const,
+    description: '45 minutes deep work on Project X',
+    type: 'present' as const
+  },
+  // Future Tasks
+  { 
+    id: 5, 
     time: '01:30 PM', 
     title: 'Team Meeting', 
     status: 'upcoming' as const,
-    description: 'Quarterly planning with design team'
+    description: 'Quarterly planning with design team',
+    type: 'future' as const
   },
   { 
-    id: 5, 
+    id: 6, 
     time: '03:00 PM', 
     title: 'Learning Block', 
     status: 'upcoming' as const,
-    description: 'Continue course on new technologies'
+    description: 'Continue course on new technologies',
+    type: 'future' as const
+  },
+  { 
+    id: 7, 
+    time: '05:00 PM', 
+    title: 'Day Review', 
+    status: 'upcoming' as const,
+    description: 'Reflect on accomplishments and plan for tomorrow',
+    type: 'future' as const
   },
 ];
 
