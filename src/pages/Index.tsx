@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Heart, Clock, BrainCircuit, Star } from 'lucide-react';
+import { BrainCircuit, Clock, Heart, Star, Plus, Calendar, BookOpen } from 'lucide-react';
 import DashboardLayout from '@/components/DashboardLayout';
 import Avatar3D from '@/components/Avatar3D';
 import TimeWeave from '@/components/TimeWeave';
@@ -49,18 +49,17 @@ const timelineItems = [
 
 const habitData = [
   { label: 'Sleep', value: 8, color: '#00F0FF' },
-  { label: 'Exercise', value: 6, color: '#B98EFF' },
+  { label: 'Exercise', value: 6, color: '#536DFE' },
   { label: 'Work', value: 9, color: '#FF4081' },
   { label: 'Learning', value: 7, color: '#00F0FF' },
-  { label: 'Social', value: 5, color: '#B98EFF' },
-  { label: 'Meditation', value: 4, color: '#FF4081' },
+  { label: 'Social', value: 5, color: '#536DFE' },
+  { label: 'Meditation', value: 4, color: '#C6FF00' },
 ];
 
 const quickActions = [
-  { label: 'New Task', variant: 'primary' as const },
-  { label: 'Schedule Meeting', variant: 'secondary' as const },
-  { label: 'Add Note', variant: 'outline' as const },
-  { label: 'Ask Verve', variant: 'primary' as const },
+  { label: 'Add Task', variant: 'primary' as const, icon: <Plus size={14} /> },
+  { label: 'Schedule', variant: 'secondary' as const, icon: <Calendar size={14} /> },
+  { label: 'Journal', variant: 'outline' as const, icon: <BookOpen size={14} /> },
 ];
 
 const Index = () => {
@@ -93,10 +92,10 @@ const Index = () => {
         <div className="glass-panel p-6 mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold mb-2">
-                <span className="text-glow">{greeting},</span> User
+              <h1 className="text-2xl font-medium mb-1">
+                <span className="text-white">{greeting},</span> <span className="text-verve-teal">User</span>
               </h1>
-              <p className="text-verve-grey">
+              <p className="text-white/70">
                 Today is <span className="text-white">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
               </p>
             </div>
@@ -105,7 +104,8 @@ const Index = () => {
                 <QuickAction 
                   key={index} 
                   label={action.label} 
-                  variant={action.variant} 
+                  variant={action.variant}
+                  icon={action.icon} 
                 />
               ))}
             </div>
@@ -153,7 +153,7 @@ const Index = () => {
               value="92%" 
               change="+5%" 
               trend="up" 
-              icon={<Clock size={18} className="text-verve-lilac" />}
+              icon={<Clock size={18} className="text-verve-blue" />}
             />
           </div>
           <div className="col-span-12 md:col-span-3">
@@ -171,7 +171,7 @@ const Index = () => {
               value="68%" 
               change="On Track" 
               trend="neutral" 
-              icon={<Star size={18} className="text-verve-lilac" />}
+              icon={<Star size={18} className="text-verve-lime" />}
             />
           </div>
         </div>

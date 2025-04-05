@@ -14,54 +14,75 @@ interface TimeWeaveProps {
 }
 
 const TimeWeave: React.FC<TimeWeaveProps> = ({ items }) => {
+  // Function to get the color based on status
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'bg-verve-teal';
+      case 'in-progress': return 'bg-verve-blue';
+      case 'upcoming': return 'bg-white/30';
+      default: return 'bg-white/30';
+    }
+  };
+
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-lg font-semibold text-verve-grey mb-4 flex items-center">
-        <span className="bg-gradient-to-r from-verve-teal to-verve-lilac bg-clip-text text-transparent font-bold mr-2">
+      <h2 className="text-lg font-medium text-white mb-4 flex items-center">
+        <span className="text-verve-teal font-semibold mr-2">
           Time-Weave
         </span>
-        <span className="text-sm font-normal">Timeline</span>
+        <span className="text-sm font-normal text-white/70">Timeline</span>
       </h2>
       
       <div className="flex-1 overflow-y-auto pr-2 hide-scrollbar">
         <div className="relative">
           {/* Vertical timeline line */}
-          <div className="absolute left-2.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-verve-teal/50 via-verve-lilac/30 to-verve-grey/20"></div>
+          <div className="absolute left-2.5 top-0 bottom-0 w-px bg-white/10"></div>
           
           {/* Timeline items */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {items.map((item, index) => (
               <div 
                 key={item.id}
                 className={`
-                  relative pl-10 animate-fade-in
+                  relative pl-8 animate-fade-in
                   ${index % 2 === 0 ? 'animate-slide-up' : ''}
                   transition-all duration-300 ease-in-out
                 `}
-                style={{ animationDelay: `${index * 100}ms` }}
+                style={{ animationDelay: `${index * 80}ms` }}
               >
                 {/* Timeline dot */}
                 <div 
                   className={`
-                    absolute left-0 top-1.5 w-5 h-5 rounded-full flex items-center justify-center
-                    ${item.status === 'completed' ? 'bg-verve-teal' : 
-                      item.status === 'in-progress' ? 'bg-verve-lilac' : 'bg-verve-grey/40'}
+                    absolute left-0 top-2 w-5 h-5 rounded-full flex items-center justify-center
+                    border border-white/20
                   `}
                 >
-                  <div 
-                    className={`
-                      w-2 h-2 rounded-full 
-                      ${item.status === 'in-progress' ? 'bg-white animate-pulse' : 'bg-transparent'}
-                    `}
-                  ></div>
+                  <div className={`w-2.5 h-2.5 rounded-full ${getStatusColor(item.status)}`}></div>
                 </div>
                 
                 {/* Content */}
-                <div className="glass-card p-3 hover:bg-white/5 transition-all duration-300">
-                  <div className="text-xs text-verve-grey mb-1">{item.time}</div>
+                <div className="glass-card p-3 hover:bg-white/10 transition-all duration-300">
+                  <div className="text-xs text-white/50 mb-1">{item.time}</div>
                   <div className="text-sm font-medium text-white mb-1">{item.title}</div>
                   {item.description && (
-                    <div className="text-xs text-verve-grey">{item.description}</div>
+                    <div className="text-xs text-white/70">{item.description}</div>
+                  )}
+                  
+                  {/* Progress indicator for tasks */}
+                  {item.status === 'completed' && (
+                    <div className="mt-2 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full w-full bg-verve-teal rounded-full"></div>
+                    </div>
+                  )}
+                  {item.status === 'in-progress' && (
+                    <div className="mt-2 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full w-1/2 bg-verve-blue rounded-full"></div>
+                    </div>
+                  )}
+                  {item.status === 'upcoming' && (
+                    <div className="mt-2 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full w-0 bg-verve-pink rounded-full"></div>
+                    </div>
                   )}
                 </div>
               </div>

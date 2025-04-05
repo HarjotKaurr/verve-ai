@@ -22,21 +22,21 @@ const NavItem: React.FC<NavItemProps> = ({
       to={to}
       onClick={onClick}
       className={`
-        flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300
+        flex items-center space-x-3 px-4 py-3 rounded-md transition-all duration-300
         ${isActive 
-          ? 'bg-verve-teal/20 text-verve-teal border border-verve-teal/30' 
-          : 'text-verve-grey hover:bg-white/5 hover:text-white'}
+          ? 'bg-white/10 text-verve-teal border-l-2 border-verve-teal' 
+          : 'text-white hover:bg-white/5 hover:text-verve-teal'}
       `}
     >
       <div className={`
-        ${isActive ? 'text-verve-teal' : 'text-verve-grey'}
+        ${isActive ? 'text-verve-teal' : 'text-white'}
       `}>
         {icon}
       </div>
       <span className="text-sm font-medium">{label}</span>
       
       {isActive && (
-        <div className="ml-auto h-2 w-2 rounded-full bg-verve-teal animate-pulse"></div>
+        <div className="ml-auto h-1.5 w-1.5 rounded-full bg-verve-teal"></div>
       )}
     </Link>
   );
