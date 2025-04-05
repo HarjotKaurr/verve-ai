@@ -1,5 +1,6 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+
+import React, { useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,13 +13,22 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="min-h-screen flex items-center justify-center bg-verve-midnight">
+      <div className="glass-panel p-8 max-w-md text-center">
+        <h1 className="text-6xl font-bold bg-gradient-to-r from-verve-teal to-verve-lilac bg-clip-text text-transparent mb-6">
+          404
+        </h1>
+        <p className="text-xl text-verve-grey mb-6">
+          This digital realm doesn't exist yet
+        </p>
+        <div className="inline-block">
+          <Link 
+            to="/" 
+            className="glass-button text-verve-teal hover:text-white transition-colors"
+          >
+            Return to Dashboard
+          </Link>
+        </div>
       </div>
     </div>
   );
