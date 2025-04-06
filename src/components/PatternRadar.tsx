@@ -71,10 +71,10 @@ const PatternRadar: React.FC<PatternRadarProps> = ({ habits }) => {
   return (
     <div className="h-full flex flex-col">
       <h2 className="text-lg font-semibold text-verve-grey mb-4 flex items-center">
-        <span className="bg-gradient-to-r from-verve-lilac to-verve-pink bg-clip-text text-transparent font-bold mr-2">
+        <span className="text-white font-bold mr-2">
           Pattern Radar
         </span>
-        <span className="text-sm font-normal">Habit Web</span>
+        <span className="text-sm font-normal text-white/70">Habit Web</span>
       </h2>
       
       <div className="relative flex-1 flex items-center justify-center">

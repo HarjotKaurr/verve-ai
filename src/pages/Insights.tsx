@@ -1,8 +1,8 @@
 
 import React from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
-import { BarChart, LineChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Brain, Moon, Zap, HeartPulse } from 'lucide-react';
+import { BarChart, LineChart, PieChart, Pie, Cell, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Brain, Moon, Zap, BookOpen } from 'lucide-react';
 
 const InsightsPage = () => {
   // Sample sleep data
@@ -26,15 +26,13 @@ const InsightsPage = () => {
     { time: '6pm', focus: 65, energy: 50 },
   ];
 
-  // Sample stress data
-  const stressData = [
-    { date: 'Apr 1', level: 65 },
-    { date: 'Apr 2', level: 45 },
-    { date: 'Apr 3', level: 55 },
-    { date: 'Apr 4', level: 40 },
-    { date: 'Apr 5', level: 30 },
-    { date: 'Apr 6', level: 35 },
-    { date: 'Apr 7', level: 25 },
+  // Sample journal analysis data
+  const journalEmotionsData = [
+    { name: 'Happiness', value: 35, color: '#00F0FF' },
+    { name: 'Motivation', value: 25, color: '#536DFE' },
+    { name: 'Creativity', value: 18, color: '#FF4081' },
+    { name: 'Focus', value: 12, color: '#C6FF00' },
+    { name: 'Burnout', value: 10, color: '#FF7043' },
   ];
   
   return (
@@ -142,20 +140,31 @@ const InsightsPage = () => {
         </div>
         
         <div className="grid grid-cols-12 gap-6">
-          {/* Stress Levels */}
+          {/* Journal Analysis */}
           <div className="col-span-12 md:col-span-6">
             <div className="glass-panel p-6">
               <h2 className="text-lg font-medium text-white mb-4 flex items-center">
-                <HeartPulse size={18} className="mr-2 text-verve-pink" />
-                <span>Stress Levels</span>
+                <BookOpen size={18} className="mr-2 text-verve-pink" />
+                <span>Journal Analysis</span>
               </h2>
               
               <div className="bg-white/5 rounded-lg p-4" style={{ height: '280px' }}>
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={stressData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis dataKey="date" stroke="rgba(255,255,255,0.5)" fontSize={12} />
-                    <YAxis stroke="rgba(255,255,255,0.5)" fontSize={12} />
+                  <PieChart>
+                    <Pie
+                      data={journalEmotionsData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {journalEmotionsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
                     <Tooltip
                       contentStyle={{
                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -163,30 +172,26 @@ const InsightsPage = () => {
                         borderRadius: '4px',
                         color: 'white',
                       }}
+                      formatter={(value) => [`${value} mentions`, 'Frequency']}
                     />
-                    <Area 
-                      type="monotone" 
-                      dataKey="level" 
-                      stroke="#FF4081" 
-                      fill="#FF4081" 
-                      fillOpacity={0.2} 
-                    />
-                  </LineChart>
+                  </PieChart>
                 </ResponsiveContainer>
               </div>
               
-              <div className="mt-4 grid grid-cols-3 gap-3">
+              <div className="mt-4 grid grid-cols-1 gap-3">
                 <div className="bg-white/5 p-3 rounded-lg">
-                  <div className="text-xs text-white/50 mb-1">Current</div>
-                  <div className="text-xl font-medium text-white">Low</div>
+                  <div className="text-xs text-white/50 mb-1">Journal Summary</div>
+                  <div className="text-sm text-white">
+                    Your journal entries show positive emotional trends with frequent mentions of happiness and motivation.
+                  </div>
                 </div>
-                <div className="bg-white/5 p-3 rounded-lg">
-                  <div className="text-xs text-white/50 mb-1">Weekly Avg</div>
-                  <div className="text-xl font-medium text-verve-pink">42%</div>
-                </div>
-                <div className="bg-white/5 p-3 rounded-lg">
-                  <div className="text-xs text-white/50 mb-1">Trend</div>
-                  <div className="text-xl font-medium text-verve-teal">-15%</div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {journalEmotionsData.map((item, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="w-3 h-3 rounded-full mr-1" style={{ backgroundColor: item.color }}></div>
+                      <span className="text-xs text-white/70">{item.name}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

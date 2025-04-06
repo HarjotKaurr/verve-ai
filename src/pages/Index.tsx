@@ -89,15 +89,9 @@ const quickActions = [
 ];
 
 const Index = () => {
-  const [isAIActive, setIsAIActive] = useState(false);
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
-    // Set avatar to active state after a delay for demo effect
-    const timeout = setTimeout(() => {
-      setIsAIActive(true);
-    }, 2000);
-    
     // Generate greeting based on time of day
     const hour = new Date().getHours();
     let newGreeting = '';
@@ -107,8 +101,6 @@ const Index = () => {
     else newGreeting = 'Good Evening';
     
     setGreeting(newGreeting);
-    
-    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -143,7 +135,7 @@ const Index = () => {
           {/* Left Column - Avatar */}
           <div className="col-span-12 md:col-span-3">
             <div className="glass-panel h-[400px] p-6">
-              <Avatar3D isActive={isAIActive} />
+              <Avatar3D />
             </div>
           </div>
           
