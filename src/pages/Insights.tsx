@@ -3,6 +3,7 @@ import React from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import { BarChart, LineChart, PieChart, Pie, Cell, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Brain, Moon, Zap, BookOpen } from 'lucide-react';
+import { ChartContainer, ChartTooltipContent, ChartTooltip } from '@/components/ui/chart';
 
 const InsightsPage = () => {
   // Sample sleep data
@@ -33,6 +34,16 @@ const InsightsPage = () => {
     { name: 'Creativity', value: 18, color: '#FF4081' },
     { name: 'Focus', value: 12, color: '#C6FF00' },
     { name: 'Burnout', value: 10, color: '#FF7043' },
+  ];
+
+  // Sample journal keyword data
+  const journalKeywordsData = [
+    { name: 'Happy', value: 28, color: '#00F0FF' },
+    { name: 'Excited', value: 21, color: '#536DFE' },
+    { name: 'Stressed', value: 16, color: '#FF4081' },
+    { name: 'Overwhelmed', value: 12, color: '#C6FF00' },
+    { name: 'Tired', value: 9, color: '#FF7043' },
+    { name: 'Productive', value: 14, color: '#9C27B0' },
   ];
   
   return (
@@ -197,103 +208,58 @@ const InsightsPage = () => {
             </div>
           </div>
           
-          {/* Cognitive Performance */}
+          {/* Keyword Analysis */}
           <div className="col-span-12 md:col-span-6">
             <div className="glass-panel p-6">
               <h2 className="text-lg font-medium text-white mb-4 flex items-center">
-                <Brain size={18} className="mr-2 text-verve-lime" />
-                <span>Cognitive Performance</span>
+                <BookOpen size={18} className="mr-2 text-verve-lime" />
+                <span>Keyword Analysis</span>
               </h2>
               
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="glass-card p-4">
-                  <div className="text-xs text-white/50 mb-2">Focus Score</div>
-                  <div className="flex items-end">
-                    <div className="text-2xl font-medium text-verve-teal">92</div>
-                    <div className="text-xs text-verve-teal ml-1 mb-1">/ 100</div>
-                  </div>
-                  
-                  {/* Mini line visualization */}
-                  <div className="mt-3 flex items-end space-x-1">
-                    {[40, 60, 75, 65, 85, 92].map((value, index) => (
-                      <div 
-                        key={index} 
-                        className="w-4 bg-verve-teal/30" 
-                        style={{ 
-                          height: `${value * 0.4}px`,
-                          backgroundColor: index === 5 ? 'rgb(0, 240, 255)' : 'rgba(0, 240, 255, 0.3)'
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="glass-card p-4">
-                  <div className="text-xs text-white/50 mb-2">Memory</div>
-                  <div className="flex items-end">
-                    <div className="text-2xl font-medium text-verve-blue">83</div>
-                    <div className="text-xs text-verve-blue ml-1 mb-1">/ 100</div>
-                  </div>
-                  
-                  {/* Mini line visualization */}
-                  <div className="mt-3 flex items-end space-x-1">
-                    {[65, 70, 75, 83, 80, 83].map((value, index) => (
-                      <div 
-                        key={index} 
-                        className="w-4" 
-                        style={{ 
-                          height: `${value * 0.4}px`,
-                          backgroundColor: index === 5 ? 'rgb(83, 109, 254)' : 'rgba(83, 109, 254, 0.3)'
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
+              <div className="bg-white/5 rounded-lg p-4" style={{ height: '280px' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={journalKeywordsData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {journalKeywordsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '4px',
+                        color: 'white',
+                      }}
+                      formatter={(value) => [`${value} mentions`, 'Keyword Frequency']}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="glass-card p-4">
-                  <div className="text-xs text-white/50 mb-2">Creativity</div>
-                  <div className="flex items-end">
-                    <div className="text-2xl font-medium text-verve-pink">79</div>
-                    <div className="text-xs text-verve-pink ml-1 mb-1">/ 100</div>
-                  </div>
-                  
-                  {/* Mini line visualization */}
-                  <div className="mt-3 flex items-end space-x-1">
-                    {[50, 65, 70, 72, 75, 79].map((value, index) => (
-                      <div 
-                        key={index} 
-                        className="w-4" 
-                        style={{ 
-                          height: `${value * 0.4}px`,
-                          backgroundColor: index === 5 ? 'rgb(255, 64, 129)' : 'rgba(255, 64, 129, 0.3)'
-                        }}
-                      ></div>
-                    ))}
+              <div className="mt-4 grid grid-cols-1 gap-3">
+                <div className="bg-white/5 p-3 rounded-lg">
+                  <div className="text-xs text-white/50 mb-1">Keyword Summary</div>
+                  <div className="text-sm text-white">
+                    Analysis shows frequent positive keywords with "Happy" and "Excited" being most common. Some stress indicators present.
                   </div>
                 </div>
-                
-                <div className="glass-card p-4">
-                  <div className="text-xs text-white/50 mb-2">Problem Solving</div>
-                  <div className="flex items-end">
-                    <div className="text-2xl font-medium text-verve-lime">87</div>
-                    <div className="text-xs text-verve-lime ml-1 mb-1">/ 100</div>
-                  </div>
-                  
-                  {/* Mini line visualization */}
-                  <div className="mt-3 flex items-end space-x-1">
-                    {[70, 75, 80, 82, 85, 87].map((value, index) => (
-                      <div 
-                        key={index} 
-                        className="w-4" 
-                        style={{ 
-                          height: `${value * 0.4}px`,
-                          backgroundColor: index === 5 ? 'rgb(198, 255, 0)' : 'rgba(198, 255, 0, 0.3)'
-                        }}
-                      ></div>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {journalKeywordsData.map((item, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="w-3 h-3 rounded-full mr-1" style={{ backgroundColor: item.color }}></div>
+                      <span className="text-xs text-white/70">{item.name}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

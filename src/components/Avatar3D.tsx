@@ -41,27 +41,6 @@ const Avatar3D: React.FC<Avatar3DProps> = ({ isActive = false, enableChat = fals
         `}></div>
       </div>
       
-      {/* AI Status */}
-      <div className="text-center mt-4">
-        <div className="text-verve-gray text-xs uppercase font-semibold tracking-wider mb-1">
-          AI Status
-        </div>
-        <div className={`
-          inline-flex items-center px-3 py-1 rounded-full 
-          ${isActive 
-            ? 'bg-verve-teal/10 text-verve-teal border border-verve-teal/30' 
-            : 'bg-white/10 text-white border border-white/20'}
-        `}>
-          <span className={`
-            w-1.5 h-1.5 rounded-full mr-2
-            ${isActive ? 'bg-verve-teal' : 'bg-white/50'}
-          `}></span>
-          <span className="text-xs font-medium">
-            {isActive ? 'ACTIVE' : 'STANDBY'}
-          </span>
-        </div>
-      </div>
-      
       {/* Chat Interface - Only show if enableChat is true */}
       {enableChat && (
         <div className="w-full mt-8">
